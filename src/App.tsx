@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import CarDetail from "./pages/CarDetail";
 import Checkout from "./pages/Checkout";
 import AdminDashboard from "./pages/admin/Dashboard";
+import CarsPage from "./pages/admin/Cars";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
             {/* Административные маршруты */}
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/admin/cars" element={<CarsPage />} />
             
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
