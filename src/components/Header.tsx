@@ -1,8 +1,9 @@
 
 import { Button } from "./ui/button";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "./ui/navigation-menu";
-import { ShoppingCart, User } from "lucide-react";
+import { User } from "lucide-react";
 import { Link } from "react-router-dom";
+import CartDrawer from "./CartDrawer";
 
 const Header = () => {
   return (
@@ -62,14 +63,7 @@ const Header = () => {
         </NavigationMenu>
         
         <div className="flex items-center gap-4">
-          <Link to="/cart">
-            <Button variant="ghost" size="icon" className="relative">
-              <ShoppingCart className="h-5 w-5" />
-              <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] text-primary-foreground">
-                0
-              </span>
-            </Button>
-          </Link>
+          <CartDrawer />
           <Link to="/login">
             <Button variant="outline" size="sm" className="gap-2">
               <User className="h-4 w-4" />
