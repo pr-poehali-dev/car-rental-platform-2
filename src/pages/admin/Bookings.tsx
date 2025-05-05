@@ -28,8 +28,9 @@ import { format } from "date-fns";
 import { ru } from "date-fns/locale";
 import { 
   CalendarRange, Search, Filter, ArrowLeft,
-  CalendarIcon, Check, X, FileText 
+  CalendarIcon, Check, X, FileText, Printer
 } from "lucide-react";
+import PrintForms from "@/components/PrintForms";
 
 interface BookingData {
   id: string;
@@ -58,6 +59,9 @@ const BookingsPage = () => {
   const [isCancelDialogOpen, setIsCancelDialogOpen] = useState(false);
   const [currentBooking, setCurrentBooking] = useState<BookingData | null>(null);
   const [cancelReason, setCancelReason] = useState("");
+  const [isPrintFormsOpen, setIsPrintFormsOpen] = useState(false);
+  const [selectedBookings, setSelectedBookings] = useState<string[]>([]);
+  const [isBulkActionOpen, setIsBulkActionOpen] = useState(false);
 
   // Статусы бронирований
   const bookingStatuses = [
@@ -227,6 +231,39 @@ const BookingsPage = () => {
     }
   };
 
+  const handleBulkStatusChange = async (newStatus: BookingData["status"]) => {
+    try {
+      // В реальном приложении здесь будет запрос к API
+      const updatedBookings = bookings.map(booking => 
+        selectedBookings.includes(booking.id)
+          ? { ...booking, status: newStatus }
+          : booking
+      );
+      
+      setBookings(updatedBookings);
+      setSelectedBookings([]);
+      setIsBulkActionOpen(false);
+    } catch (error) {
+      console.error("Error updating booking statuses:", error);
+    }
+  };
+
+  const toggleBookingSelection = (bookingId: string) => {
+    setSelectedBookings(prev => 
+      prev.includes(bookingId)
+        ? prev.filter(id => id !== bookingId)
+        : [...prev, bookingId]
+    );
+  };
+
+  const selectAllBookings = () => {
+    if (selectedBookings.length === filteredBookings.length) {
+      setSelectedBookings([]);
+    } else {
+      setSelectedBookings(filteredBookings.map(booking => booking.id));
+    }
+  };
+
   const getStatusInfo = (status: string) => {
     const statusObj = bookingStatuses.find(s => s.value === status);
     return {
@@ -287,12 +324,22 @@ const BookingsPage = () => {
           </Button>
           <h1 className="text-2xl font-bold md:text-3xl">Управление бронированиями</h1>
         </div>
-        <Button
-          onClick={() => navigate("/admin/bookings/calendar")}
-          className="gap-2"
-        >
-          <CalendarRange className="h-4 w-4" /> Календарь бронирований
-        </Button>
+        <div className="flex gap-2">
+          {selectedBookings.length > 0 && (
+            <Button
+              variant="default"
+              onClick={() => setIsBulkActionOpen(true)}
+            >
+              Действия ({selectedBookings.length})
+            </Button>
+          )}
+          <Button
+            onClick={() => navigate("/admin/bookings/calendar")}
+            className="gap-2"
+          >
+            <CalendarRange className="h-4 w-4" /> Календарь бронирований
+          </Button>
+        </div>
       </div>
 
       {/* Фильтры и поиск */}
@@ -382,6 +429,14 @@ const BookingsPage = () => {
               <table className="w-full text-left">
                 <thead>
                   <tr className="border-b">
+                    <th className="p-4 w-10">
+                      <input 
+                        type="checkbox" 
+                        className="h-4 w-4 rounded border-gray-300"
+                        checked={selectedBookings.length === filteredBookings.length && filteredBookings.length > 0}
+                        onChange={selectAllBookings}
+                      />
+                    </th>
                     <th className="p-4 text-sm font-medium text-gray-500">ID</th>
                     <th className="p-4 text-sm font-medium text-gray-500">Клиент</th>
                     <th className="p-4 text-sm font-medium text-gray-500">Автомобиль</th>
@@ -394,7 +449,7 @@ const BookingsPage = () => {
                 <tbody>
                   {filteredBookings.length === 0 ? (
                     <tr>
-                      <td colSpan={7} className="p-4 text-center">
+                      <td colSpan={8} className="p-4 text-center">
                         <div className="flex flex-col items-center justify-center py-10">
                           <CalendarRange className="mb-2 h-8 w-8 text-gray-300" />
                           <p className="text-gray-500">Бронирования не найдены</p>
@@ -406,6 +461,14 @@ const BookingsPage = () => {
                       const statusInfo = getStatusInfo(booking.status);
                       return (
                         <tr key={booking.id} className="border-b hover:bg-gray-50">
+                          <td className="p-4">
+                            <input 
+                              type="checkbox" 
+                              className="h-4 w-4 rounded border-gray-300"
+                              checked={selectedBookings.includes(booking.id)}
+                              onChange={() => toggleBookingSelection(booking.id)}
+                            />
+                          </td>
                           <td className="p-4 font-medium">{booking.id}</td>
                           <td className="p-4">{booking.customerName}</td>
                           <td className="p-4">{booking.carName}</td>
@@ -421,16 +484,29 @@ const BookingsPage = () => {
                             {booking.totalPrice.toLocaleString("ru-RU")} ₽
                           </td>
                           <td className="p-4">
-                            <Button 
-                              variant="ghost" 
-                              size="sm"
-                              onClick={() => {
-                                setCurrentBooking(booking);
-                                setIsDetailsDialogOpen(true);
-                              }}
-                            >
-                              Подробнее
-                            </Button>
+                            <div className="flex gap-2">
+                              <Button 
+                                variant="ghost" 
+                                size="sm"
+                                onClick={() => {
+                                  setCurrentBooking(booking);
+                                  setIsDetailsDialogOpen(true);
+                                }}
+                              >
+                                Подробнее
+                              </Button>
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                className="px-2"
+                                onClick={() => {
+                                  setCurrentBooking(booking);
+                                  setIsPrintFormsOpen(true);
+                                }}
+                              >
+                                <Printer className="h-4 w-4" />
+                              </Button>
+                            </div>
                           </td>
                         </tr>
                       );
@@ -557,9 +633,12 @@ const BookingsPage = () => {
                   <div className="mt-6 flex gap-3">
                     <Button 
                       className="flex-1 gap-2" 
-                      onClick={() => window.open(`/admin/bookings/${currentBooking.id}/print`, "_blank")}
+                      onClick={() => {
+                        setIsPrintFormsOpen(true);
+                        setIsDetailsDialogOpen(false);
+                      }}
                     >
-                      <FileText className="h-4 w-4" /> Печать
+                      <FileText className="h-4 w-4" /> Печать документов
                     </Button>
                     
                     {currentBooking.status !== "cancelled" && (
@@ -624,6 +703,51 @@ const BookingsPage = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Диалог массовых действий */}
+      <Dialog open={isBulkActionOpen} onOpenChange={setIsBulkActionOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Массовые действия</DialogTitle>
+          </DialogHeader>
+          <div className="py-4">
+            <p className="mb-4">Выбрано бронирований: {selectedBookings.length}</p>
+            <div className="space-y-4">
+              <div>
+                <h4 className="mb-2 text-sm font-medium">Изменить статус на:</h4>
+                <div className="flex flex-wrap gap-2">
+                  {bookingStatuses.map((status) => (
+                    status.value !== "cancelled" && (
+                      <Button
+                        key={status.value}
+                        variant="outline"
+                        className={`gap-2 ${status.color}`}
+                        onClick={() => handleBulkStatusChange(status.value as BookingData["status"])}
+                      >
+                        {status.label}
+                      </Button>
+                    )
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setIsBulkActionOpen(false)}>
+              Отмена
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Компонент печатных форм */}
+      {currentBooking && (
+        <PrintForms
+          booking={currentBooking}
+          isOpen={isPrintFormsOpen}
+          onClose={() => setIsPrintFormsOpen(false)}
+        />
+      )}
     </div>
   );
 };
