@@ -170,8 +170,16 @@ const AdminDashboard = () => {
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Панель управления</h1>
         <div className="flex space-x-2">
-          <Button variant="outline" onClick={() => navigate("/admin/cars/new")}>
+          <Button 
+            variant="outline" 
+            onClick={() => navigate("/admin/cars/new")}
+          >
             Добавить автомобиль
+          </Button>
+          <Button
+            onClick={() => navigate("/admin/analytics")}
+          >
+            Аналитика
           </Button>
         </div>
       </div>
@@ -279,13 +287,16 @@ const AdminDashboard = () => {
                 Отчет о выручке по дням, неделям и месяцам
               </CardDescription>
             </CardHeader>
-            <CardContent className="flex h-80 items-center justify-center">
-              <div className="text-center">
-                <BarChart2 className="mx-auto h-16 w-16 text-gray-300" />
-                <p className="mt-2 text-gray-500">
-                  Графики выручки будут отображаться здесь
-                </p>
-              </div>
+            <CardContent className="flex flex-col items-center justify-center space-y-4 p-10">
+              <BarChart2 className="h-16 w-16 text-gray-300" />
+              <p className="text-center text-gray-500">
+                Подробные финансовые отчеты и графики доступны в разделе аналитики
+              </p>
+              <Button 
+                onClick={() => navigate("/admin/analytics")}
+              >
+                Перейти к аналитике
+              </Button>
             </CardContent>
           </Card>
         </TabsContent>
