@@ -1,0 +1,905 @@
+("week");
+  /pages/admin/Bookingsconst [cars, setCars] = useStateCalendar.tsx">
+import<CarData[]>([]);
+  const [ { useState, useEffect } frombookings, setBookings] = useState<Book "react";
+import { useingData[]>([]);
+  const [Navigate } from "react-router-domselectedCarId, setSelectedCarId] =";
+import { Button } from "@/components/ui/button";
+import useState<string>("");
+
+  // {
+  Card,
+  CardContent Статусы бронир,
+  CardHeader,
+  CardTitleований с цветами
+  const,
+} from "@/components/ui/card";
+import { bookingStatusColors = {
+    pending: "bg-yellow-100 
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitleborder-yellow-400 text-yellow-800,
+  DialogFooter,
+}",
+    confirmed: "bg-blue from "@/components/ui/dialog";-100 border-blue-400 text-blue-800",
+    active: "
+import {
+  Select,
+  SelectContentbg-green-100 border-green-,
+  SelectItem,
+  SelectT400 text-green-800",
+    rigger,
+  SelectValue,
+} from "@/components/ui/completed: "bg-purple-100 border-purple-400 text-purple-800",select";
+import { authApi,
+    cancelled: "bg-red-100 border-red-400 text-re bookingsApi, carsApi } from "@d-800"
+  };
+
+  use/lib/api";
+importEffect(() => {
+    // { format, startOfMonth, endOfMonth, Проверка авторизации
+     eachDayOfIntervalif (!authApi.isAuthent, addDays, isSameDay,icated() || !authApi.isAdmin()) {
+      navigate("/login parseISO, differenceInDays } from "date-fns";", { replace: true });
+      return;
+import { ru } from "date-
+    }
+
+    fetchDatafns/locale";
+import {();
+  }, [navigate]);
+
+  use
+  Calendar as CalendarIconEffect(() => {
+    //,
+  ArrowLeft,
+   Обновляем диапазон датArrowLeftCircle,
+  ArrowRightCircle,
+  ChevronLeft,
+  Chev при изменении вида или текущей датыronRight,
+  Info,
+} from "
+    if (view === "week") {
+      setStartDate(startOfWeeklucide-react";
+import Admin(currentDate, { weekStartsOn: 1 }));
+      setEndDateLayout from "@/components/admin/Layout(lastDayOfWeek(currentDate, { weekStartsOn: 1 ";
+
+interface Car {
+  id:}));
+    } else if (view === string;
+  title: string;
+   "twoweeks") {
+      setcategory: string;
+  StartDate(startOfWeek(currentDate, { weekStartsOn: 1 }));
+      setEndDate(laststatus: string;
+}
+
+interface BookDayOfWeek(adingData {
+  id: string;
+  customerName: string;
+  carId: stringdWeeks(currentDate, 1;
+  carName: string;
+  ), { weekStartsOn: 1 startDate: string;
+  endDate:}));
+    }
+  }, [current string;
+  status: "Date, view]);
+
+  const fetchData =pending" | "confirmed" | "active async () => {
+    setIsLoading" | "completed" | "cancelled";(true);
+    try {
+      //
+  totalPrice: number;
+} В реальном приложении зд
+
+const BookingsCalendarPage = () => {есь будут запросы к API
+  const navigate = useNavigate();
+      // Для демонстрации использу
+  const [isLoading, setIsем моковые данныеLoading] = useState(true
+      await new Promise(resolve => setTimeout);
+  const [currentDate(resolve, 500));, setCurrentDate] = useState(new Date
+      
+      const mockCars:());
+  const [cars, setCars] = CarData[] = [
+        { id: useState<Car[]>([]);
+  const [bookings, setBookings "CAR001", title: "Toyota] = useState<BookingData[]>([ Camry", category: "comfort" },
+        {]);
+  const [filteredCar id: "CAR002", title: "Id, setFilteredCarId] = useState<string>BMW X5", category: "("");
+  const [currentBooking, setCurrentpremium" },
+        { id: "CARBooking] = useState<BookingData |003", title: "Kia Rio null>(null);
+  const [isBook", category: "economy" },
+        {ingDialogOpen, setIsBookingDial id: "CAR004", title: "ogOpen] = useState(false);Hyundai Solaris", category: "
+
+  // Статусы бронирований и их цвета
+  const bookeconomy" },
+        { id: "CAingStatusColors = {
+    pending:R005", title: "Mercedes E-Class", category: "business" }
+      ]; "bg-yellow-200
+      
+      const mockBookings: BookingData[] = [
+        {
+          i border-yellow-400",
+    confirmed: "bg-blued: "B1001",
+          customerName-200 border-blue-400",: "Иван Пет
+    active: "bg-green-200 ров",
+          carId: "CARborder-green-400",
+    completed:001",
+          carName: "Toyota "bg-purple-200 border-purple Camry",
+          startDate: "2-400",
+    cancelled: "bg-025-05-01",
+          endDatered-200 border-red-400",: "2025-05-04
+  };
+
+  useEffect(() => {",
+          status: "active
+    // Проверка",
+          totalPrice: 10500 авторизации
+    
+        },
+        {
+          id:if (!authApi.is "B1002",
+          customerName:Authenticated() || !authApi. "Анна Смирнова",isAdmin()) {
+      navigate("/login",
+          carId: "CAR002", { replace: true });
+      return;
+          carName: "BMW X5",
+          startDate: "2025-05-
+    }
+
+    fetchData();
+  }, [navigate]);
+
+  const fetchData = async ()03",
+          endDate: "2025- => {
+    setIsLoading(true05-10",
+          status:);
+    try {
+       "pending",
+          totalPrice: 52// В реальном прилож500
+        },
+        {
+          id:ении здесь будут запросы к API
+      // "B1003",
+          customerName: "Дмитрий Для демонстрации используем мо Козлов",
+          carId: "CAковые данные
+      awaitR003",
+          carName: " new Promise(resolve => setTimeout(resolveKia Rio",
+          startDate: "2025-05-02",
+          endDate, 500));
+      
+      const mockCars: Car[] = [: "2025-05-05",
+        { id: "CA
+          status: "completed",
+          totalPriceR001", title: "Toyota: 6000
+        }, Camry", category: "comfort
+        {
+          id: "B1004", status: "available" },
+        {",
+          customerName: "Ел id: "CAR002", title: "ена Соколова",
+          carBMW X5", category: "Id: "CAR001",
+          carNamepremium", status: "available" },
+        {: "Toyota Camry",
+          start id: "CAR003", title: "Date: "2025-05-06",
+          endDate: "2025-Kia Rio", category: "economy05-08",
+          status:", status: "maintenance" },
+        { id: "CAR004", title: " "confirmed",
+          totalPrice: 7Hyundai Solaris", category: "000
+        },
+        {
+          id:economy", status: "available" },
+         "B1005",
+          customerName:{ id: "CAR005", title: "Александр Иванов",
+           "Mercedes E-Class", category:carId: "CAR004",
+           "business", status: "availablecarName: "Hyundai Solaris",
+          startDate: "2025" },
+      ];
+      
+      const mockBookings: BookingData[] = [-04-25",
+          endDate
+        {
+          id: "B1001",
+          customerName: "2025-04-30",
+          : "Иван Петstatus: "cancelled",
+          totalPrice: 10000
+        },ров",
+          carId: "CAR
+        {
+          id: "B1001",
+          carName: "Toyota006",
+          customerName: " Camry",
+          startDate: "2Ольга Васильева",
+          carId: "CAR005",
+          025-05-01",
+          endDatecarName: "Mercedes E-Class",: "2025-05-04
+          startDate: "2025-05-",
+          status: "active05",
+          endDate",
+          totalPrice: 10: "2025-05-12",
+          status: "confirme500,
+        },
+        {
+          id",
+          totalPrice: 35d: "B1002",
+          customerName000
+        }
+      ];
+      : "Анна См
+      setCars(mockCars);
+      ирнова",
+          carId: "setBookings(mockBookings);
+    CAR002",
+          carName: "BMW X5",
+          startDate: "} catch (error) {
+      console.error("Error fetching data:", error);2025-05-03",
+          endDate
+    } finally {
+      setIsLoading: "2025-05-10(false);
+    }
+  };
+
+  const goToNextPeriod = () =>",
+          status: "pending",
+          totalPrice {
+    if (view === "week"): 52500,
+        }, {
+      setCurrentDate(addWe
+        {
+          id: "B1003eks(currentDate, 1));
+    ",
+          customerName: "Д} else {
+      setCurrentDateмитрий Козлов",
+          carId: "CA(addWeeks(currentDate, 2));
+    }R003",
+          carName: "
+  };
+
+  const goToPreviouKia Rio",
+          startDate: "sPeriod = () => {
+    if2025-05-02",
+          endDate (view === "week") {
+      set: "2025-05-05",CurrentDate(subWeeks(currentDate,
+          status: "completed",
+          totalPrice 1));
+    } else {
+      setCurrentDate(subWeeks(currentDate: 6000,
+        },, 2));
+    }
+  };
+        {
+          id: "B1004
+
+  const goToToday = ()",
+          customerName: "Ел => {
+    setCurrentDate(new Dateена Соколова",
+          ());
+  };
+
+  //carId: "CAR001",
+          carName: "Toyota Cam Получаем массив дry",
+          startDate: "2025-05-15",
+          endDateней для шапки таблицы
+  : "2025-05-18",
+          status: "confirmed",
+          totalPrice: 7const getDaysArray = () => {
+    const000,
+        },
+        {
+          i days = [];
+    let dayd: "B1005",
+          customerName = startDate;
+    
+    while (: "Александр Ивановday <= endDate) {
+      days.",
+          carId: "CAR004push(day);
+      day = addD",
+          carName: "Hyundai Solaris",
+          startDate:ays(day, 1);
+    }
+    
+    return days;
+  }; "2025-05-19",
+          endDate: "2025-05-24",
+          status: "confirmed",
+          totalPrice
+
+  // Фильтрация автомобилей
+  const filteredCars = selectedCarId 
+    : 10000,
+        },? cars.filter(car => car.id === selectedCarId) 
+    : cars
+        {
+          id: "B1006",
+          customerName: "М;
+
+  // Проверяем, есария Сидорова",ть ли бронирование
+          carId: "CAR005",
+          carName: "Mercedes E-Class", на конкретную дату для
+          startDate: "2025-05 конкретного автом-06",
+          endDate: "2обиля
+  const get025-05-11",
+          status: "active",
+          totalPrice: 35BookingsForCarAndDay = (carId:000,
+        },
+        {
+           string, day: Date) => {id: "B1007",
+          customer
+    return bookings.filter(bookingName: "Павел Жуков => {
+      const booking",
+          carId: "CAR002",
+          carName: "BMW X5Start = parseISO(booking.",
+          startDate: "2025-startDate);
+      const bookingEnd =05-20",
+          endDate parseISO(booking.endDate);: "2025-05-25",
+      return (
+        booking
+          status: "pending",
+          totalPrice.carId === carId &&
+        booking: 45000,
+        }.status !== "cancelled" &&
+      ];
+      
+      setCars(mockCars);
+      setBookings(
+        day >= bookingStart &&
+        day <= bookmockBookings);
+    } catch (error)ingEnd
+      );
+    });
+   {
+      console.error("Error fetching};
+
+  const days = getDaysArray(); data:", error);
+    } finally {
+
+  return (
+    <div
+      setIsLoading(false);
+    }
+  };
+
+  // className="container mx-auto p-4  Получение первого иmd:p-6">
+      <div последнего дня текущего месяца className="mb-6 flex items-center
+  const firstDayOf justify-between">
+        <div className="flex items-center gap-4">Month = startOfMonth(currentDate
+          <Button 
+            variant="ghost);
+  const lastDayOfMonth = endOfMonth(currentDate);" 
+            size="icon
+  
+  // Получение вс"
+            onClick={() => navigate("/ех дней в текущем месяadmin/bookings")}
+          це
+  const daysInMonth = e>
+            <ArrowLeft className="hachDayOfInterval({ start: firstD-5 w-5" />
+          ayOfMonth, end: lastDayOf</Button>
+          <hMonth });
+
+  // Филь1 className="text-2xl font-трация бронирований
+  const filteredBookings = bookings.bold md:text-3xl">Календарь бронирований</h1>filter(booking => {
+    if
+        </div>
+        <Button (filteredCarId && booking.carId !== filteredCarId) {
+          onClick={() => navigate("/admin/bookings
+      return false;
+    }
+    /add")}
+          className="gap-2"
+        
+    const bookingStart>
+          <Plus className="h-4 = parseISO(booking.startDate); w-4" />
+    const bookingEnd = parseISO Новое бронирование(booking.endDate);
+    
+    
+        </Button>
+      </div>// Показываем б
+
+      {/* Панель управронирование, если хотя бы один день попадает в текущления календарем */}
+      <Carий месяц
+    return (d className="mb-6">
+        <CardContent className="flex flex-wrap
+      (bookingStart <= items-center justify-between gap-4  lastDayOfMonth && bookingEnd >= firstDayOfMonth) &&p-4">
+          <div className="flex
+      booking.status !== "cancelle items-center gap-2">
+            d"
+    );
+  });
+
+  //<Button
+              variant="outline Фильтрация авт"
+              size="icon"
+              onClick={омобилей для отображения
+  goToPreviousPeriod}const availableCars = cars.filter(car =>
+            >
+              <ChevronLeft className="h-4 w-4" car.status !== "maintenance" />
+            </Button>
+            <Button || filteredCarId === car
+              variant="outline"
+              onClick.id);
+  
+  //={goToToday}
+            >
+              Сегодня Обработчик для перехода к пред
+            </Button>
+            <Button
+              ыдущему месяцу
+  variant="outline"
+              size="icon"const handlePrevMonth = () => {
+              onClick={goToNextPerio
+    const prevMonth = new Date(currentDate);d}
+            >
+              <Chevron
+    prevMonth.setMonth(prevMonthRight className="h-4 w-4.getMonth() - 1);
+    " />
+            </Button>
+            setCurrentDate(prevMonth);
+  };<span className="text-lg
+  
+  // Обработчик для font-medium">
+              {format перехода к следующему месяцу
+  const handleNextMonth = () => {
+    const nextMonth = new Date((startDate, "d MMMM", { locale: ru })} - {format(endDate, "d MMMM yyyycurrentDate);
+    nextMonth.setMonth", { locale: ru })}
+            (nextMonth.getMonth() + 1</span>
+          </div>
+          );
+    setCurrentDate(nextMonth);
+          <div className="flex items-center gap
+  };
+
+  // Про-4">
+            <divверка, попадает ли д className="flex items-center gap-2">ата в диапазон б
+              <CalendarIcon className="hронирования
+  const isDateInBook-4 w-4 text-gray-400ingRange = (date: Date," />
+              <Select
+                value={ booking: BookingData) => {
+    view}
+                onValueChange={(value:const bookingStart = parseISO(booking "week" | "twoweeks").startDate);
+    const bookingEn => setView(value)}
+              d = parseISO(booking.endDate);>
+                <SelectTrigger className
+    
+    return date >= bookingStart &&="w-[140px]">
+                 date <= bookingEnd;
+  };  <SelectValue />
+                </SelectT
+
+  // Обработчик для открrigger>
+                <SelectContent>ытия диалога с де
+                  <SelectItem value="week">талями бронирования
+  const handleНеделя</SelectItem>
+                  BookingClick = (booking: Book<SelectItem value="twoweeks">ingData) => {
+    setCurrentBookДве недели</SelectItem>
+                ing(booking);
+    setIsBooking</SelectContent>
+              </Select>DialogOpen(true);
+  };
+            </div>
+            
+
+  // Форматирование даты
+            <Select
+              value={selectedCarId}
+              onValueChange={set
+  const formatDate = (dateSelectedCarId}
+            >
+              String: string) => {
+    return<SelectTrigger className="w-[200 format(parseISO(dateString), "px]">
+                <SelectValue placeholderd MMMM yyyy="Все автомобили"", { locale: ru }); />
+              </SelectTrigger>
+  };
+
+  return (
+    <div
+              <SelectContent>
+                 className="container mx-auto p-<SelectItem value="">Все автомобили</SelectItem>
+                {cars.map4 md:p-6((car) => (
+                  <Select">
+      <div className="mb-6Item key={car.id} value={car flex flex-col space.id}>
+                    {car.title-y-4 md:flex-row}
+                  </SelectItem>
+                 md:items-center md:justify))}
+              </SelectContent>
+            </Select>
+          </div>
+        -between md:space-y-0">
+        <div className="flex items-center</CardContent>
+      </Card> gap-4">
+          
+
+      {/* Календарь бронир<Button 
+            variant="ghostований */}
+      <Car" 
+            size="icond>
+        <CardContent className"
+            onClick={() => navigate("/="p-0">
+          {isadmin/bookings")}
+          Loading ? (
+            <div className=">
+            <ArrowLeft className="hflex items-center justify-center-5 w-5" />
+          </Button>
+           py-10">
+              <div<h1 className="text-2xl font-bold md:text-3xl">Календарь бронирований className="h-10 w-10 </h1>
+        </div>
+        animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+            </div>
+          
+        <div className="flex items-center space) : (
+            <div className="overflow-x-4">
+          <Button-x-auto">
+               
+            variant="<table className="w-full minoutline" 
+            size-w-max table-fixe="icon"
+            onClick={handlePrevMonth}
+          d border-collapse">
+                <thead>>
+            <ChevronLeft className="
+                  <tr className="bgh-5 w-5" />-gray-50">
+          </Button>
+          
+                    <th className="border
+          <h2 className="text-b border-r p-3 text-lg font-medium">-left font-medium text-gray
+            {format(currentDate, "-500" style={{ width: "200LLLL yyyy", { localepx" }}>
+                      Автом: ru })}
+          </h2>обиль
+                    </th>
+          
+          <Button 
+            variant
+                    {days.map((day="outline" 
+            size="icon") => {
+                      const is
+            onClick={handleNextMonth}
+          Today = isSameDay(day,>
+            <ChevronRight className=" new Date());
+                      returnh-5 w-5" />
+          </Button>
+          
+          <Button  (
+                        <th 
+                          key={day.toString()} 
+                
+            variant="outline"          className={`border-b p
+            onClick={() => setCurrent-3 text-center font-medium text-grayDate(new Date())}
+          >-500 ${isToday ? 
+            Сегодня'bg-blue-50
+          </Button>
+        </div>
+      </div>' : ''}`}
+                          style={{
+
+      <Card className="mb width: `${100 / days-6">
+        <CardContent.length}%` }}
+                        > className="p-4">
+          <div
+                          <div className="flex flex className="flex flex-col space-col">
+                            <span-y-2 md:flex-row className="text-xs">{format(day md:items-center md:space, "EEEE", { locale-x-4 md:space-y: ru })}</span>
+                            -0">
+            <div<span className={`text-sm ${ className="md:w-64isToday ? 'font-semibold text-blue-600'">
+              <Select
+                value={filteredCarId}
+                on : ''}`}>
+                              {format(day, "d MMM", { locale:ValueChange={setFilteredCarId}
+               ru })}
+                            </span>>
+                <SelectTrigger>
+                          </div>
+                        </th
+                  <SelectValue placeholder="Все>
+                      );
+                    })} автомобили" />
+                </Select
+                  </tr>
+                </theaTrigger>
+                <SelectContent>d>
+                <tbody>
+                  {
+                  <SelectItem value="">filteredCars.length === 0 ?Все автомобили</SelectItem>
+                  {cars.map(( (
+                    <tr>
+                      <tcar) => (
+                    <SelectItemd colSpan={days.length + 1} key={car.id} value={car. className="p-4 text-id}>
+                      {car.title}
+                    </SelectItem>
+                  center">
+                        <div className="py))}
+                </SelectContent>
+              </Select>
+            </div>
+            -10 text-gray-500
+            <div className="flex-">
+                          Автомобили не1 space-y-2 md:flex md:items найдены
+                        </div>
+                -center md:space-x-4       </td>
+                    </tr>md:space-y
+                  ) : (
+                    filt-0">
+              <diveredCars.map((car) => ( className="text-sm text
+                      <tr key={car.i-gray-500">Обd} className="hover:bg-gray-50">означения:</div>
+              
+                        <td className="border-b<div className="flex flex-wrap gap-3">
+                <div className="flex items-center"> border-r p-3 font
+                  <div className={`mr-medium">
+                          {car.title}
+                        </td>
+                        
+                        {days.map((day) => {
+                          const-2 h-3 w-3 rounded-full ${bookingStatusColors. dayBookings = getBookingsForCarAndDaypending}`}></div>
+                  (car.id, day);
+                          <span className="text-xsconst isToday = isSameDay(day, new Date());">Ожидает</span>
+                
+
+                          return (
+                            </div>
+                <td 
+                              key={day.toString<div className="flex items-center">
+                ()} 
+                              className={`relative  <div className={`mr-2  border-b border-r p-1h-3 w-3 rounded- text-center ${isfull ${bookingStatusColors.confirmed}`}Today ? 'bg-blue-50></div>
+                  <span className="text-xs">Подтверждено' : ''}`}
+                            >
+                              {dayBookings.length</span>
+                </div>
+                 > 0 ? (
+                                <div className="flex items-center">
+                  <div className={`mr-2<div className="flex flex-col items-center h-3 w-3 rounde gap-1">
+                                  {d-full ${bookingStatusColors.active}`dayBookings.map((booking) => (}></div>
+                  <span className
+                                    <TooltipProvider key={booking.id}>="text-xs">Активно</span>
+                </div>
+                <div className
+                                      <Tooltip>="flex items-center">
+                  
+                                        <TooltipT<div className={`mr-2 h-rigger asChild>
+                                3 w-3 rounded-full ${          <div 
+                                            classNamebookingStatusColors.completed}`}></div={`cursor-pointer rounded border>
+                  <span className="text- p-1 text-xsxs">Завершено</span> ${bookingStatusColors[booking.status]}`}
+                                            
+                </div>
+              </div>
+            </div>
+          </div>
+        onClick={() => navigate(`/admin/bookings?</CardContent>
+      </Card>id=${booking.id}`)}
+                                          
+
+      {isLoading ? (>
+                                            {booking.customer
+        <div className="flexName.split(' ')[0]} items-center justify-center py-10
+                                          </div>
+                                ">
+          <div className="h        </TooltipTrigger>-10 w-10 animate-spin
+                                        <TooltipContent>
+                                          <div rounded-full border-4 border-primary border-t-transparent"></div>
+         className="space-y-1 </div>
+      ) : (
+        <div className="overflow-xp-1">
+                                            <p><strong>ID-auto">
+          <table className="w:</strong> {booking.id}</p>-full min-w-[
+                                            <p><strong>800px] border-collapse">
+            <theaКлиент:</strong> {booking.customerNamed>
+              <tr>}</p>
+                                            <p>
+                <th className="w<strong>Период:</strong> {format-48 border bg-gray-50 p-2 text-left">(parseISO(booking.startDate),Автомобиль</th> "d MMM", { locale: ru })} - {format(parseISO(booking
+                {daysInMonth..endDate), "d MMM", {map((day) => (
+                  <th 
+                    key={ locale: ru })}</p>
+                                            <p><strong>Сday.toString()} 
+                    classNameумма:</strong> {booking.totalPrice={`border p-1.toLocaleString(" text-center text-sm ${
+                ru-RU")}       isSameDay(day, new₽</p>
+                                           Date()) ? 'bg</div>
+                                        </Toolt-blue-50' : ipContent>
+                                      </Tooltip>
+                                    </TooltipProvider'bg-gray-50'
+                    }`}
+                  >
+                    >
+                                  ))}
+                                </div>
+                              ) : (<div className="font-medium
+                                <button 
+                                  ">{format(day, "d", { locale: ru })}</div>
+                className="h-full w-full cursor-    <div className="text-xs text-gray-500">{format(day, "Epointer opacity-0 hover:bgEE", { locale: ru })}</div>
+                  </th>
+                )-gray-100 hover:opacity-100"
+                                  onClick={() => navigate(`/)}
+              </tr>
+            </theaadmin/bookings/add?card>
+            <tbody>
+              {availableCars.length === 0 ?=${car.id}&date=${format(day, (
+                <tr>
+                   "yyyy-MM-dd")<td 
+                    colSp}`)}
+                                >
+                                  an={daysInMonth.length + 1} 
+                    className="border<Plus className="mx-auto h-4 p-8 text-center text w-4 text-gray-400-gray-500"
+                  >
+                    Нет" />
+                                </button>
+                               доступных автомобилей
+                  </td>
+                </tr>
+              ) : (
+                availableCars.map(()}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+          )}
+          
+          {/*car) => (
+                  <tr key={car.id}>
+                    <td className="border p-2 text-left Легенда статусов */ font-medium">
+                      {car.title}
+          <div className="border}
+                      {car.status-t p-3"> === "maintenance" && (
+                        
+            <div className="flex flex<div className="mt-1 text-xs font-wrap items-center gap-3">
+              <span className="text-normal text-orange-600">На техобслужив-sm font-medium">Статусы бронированийании</div>
+                      )}
+                :</span>
+                  </td>
+                    {days<div className="flex items-center gap-1InMonth.map((day) => {">
+                <span className={
+                      // Находим все`inline-block h-3 бронирования для текущего авт w-3 rounded-full ${bookомобиля и текущего дняingStatusColors.pending.replace
+                      const dayBookings = filteredBookings.filter(
+                        booking('bg-', 'bg-')}`}></span>
+                 => booking.carId === car.id &&<span className="text-xs"> isDateInBookingRange(day, booking)Ожидает</span>
+              
+                      );
+                      
+                      </div>
+              <div className="flex items-center gap-1">
+                <spanreturn (
+                        <td
+                          key className={`inline-block h-3 ={day.toString()}
+                          className={w-3 rounded-full ${booking`relative border p-1 StatusColors.confirmed.replace('bg-',text-center ${
+                            i 'bg-')}`}></span>sSameDay(day, new Date()) ?
+                <span className="text-xs"> 'bg-blue-50Подтверждено</span>' : ''
+                          }`
+              </div>
+              <div className="}
+                        >
+                          {dayflex items-center gap-1">
+                <span className={`inline-block h-Bookings.map((booking) => {3 w-3 rounded-full ${
+                            const bookingStart = parseISbookingStatusColors.active.replace('bgO(booking.startDate);
+                            -', 'bg-')}`}>const bookingEnd = parseISO(booking</span>
+                <span className="text-.endDate);
+                            constxs">Активно</span>
+               isFirstDay = isSameDay(day, bookingStart);
+                            </div>
+              <div className="flexconst isLastDay = isSameDay( items-center gap-1">
+                <span className={`inline-block h-3day, bookingEnd);
+                            const w-3 rounded-full ${bookingStatusColors.completed.replace('bg- duration = differenceInDays(bookingEn', 'bg-')}`}></spand, bookingStart) + 1;>
+                <span className="text-xs
+                            
+                            // Ст">Завершено</span>
+              или для разных типов дней бронирования (</div>
+              <div className="flexпервый, последний, середина)
+                             flex-grow items-center justify-end gap-2">
+                <Info className="h-4 w-4 text-gray-400let bookingStyle = "";" />
+                <span className="text-
+                            
+                            if (isxs text-gray-500">НFirstDay && isLastDay) {
+                              bookingStyle = "roundeажмите на пустую d-md";
+                            }ячейку, чтобы созд else if (isFirstDay) {
+                ать бронирование</span>
+              </div              bookingStyle = "rounded-l->
+            </div>
+          </divmd border-r->
+        </CardContent>
+      0";
+                            } else if (is</Card>
+    </div>
+  );LastDay) {
+                              bookingStyle
+};
+
+export default BookingsCalendar = "rounded-r-md border-lPage;
+</pp-write-0";
+                            } else {
+                              bookingStyle = "border>
+
+<pp-write filepath="src-x-0";
+                            }
+                /App.tsx">
+import            
+                            // От { Toaster } from "@/components/ui/toaster";
+importображаем информацию о бронировании только в первый день
+                             { Toaster asconst showBookingInfo = Sonner } from "@/components/ui/sonner";
+import { isFirstDay || (isSameDay(day TooltipProvider } from, firstDayOfMonth) "@/components/ui/tooltip";
+import && bookingStart < firstDayOfMonth { QueryClient, QueryClientProvider);
+                            
+                            return ( } from "@tanstack/react-query";
+                              <div
+                                key={booking
+import { BrowserRouter,.id}
+                                className={`cursor Routes, Route } from "-pointer border p-1 ${bookreact-router-dom";
+import {ingStatusColors[booking.status CartProvider } from "@/contexts]} ${bookingStyle}`}
+                                /CartContext";
+import IndexonClick={() => handleBookingClick(booking)} from "./pages/Index";
+import Car
+                              >
+                                {showBookingInfo && (
+                                  <divDetail from "./pages/CarDetail";
+import className="text-xs font-medium Checkout from "./pages/Checkout";
+import Admin truncate">
+                                Dashboard from "./pages/admin/Dashboard";    {booking.customerName}
+                                
+import CarsPage from "./pages  </div>
+                                )}
+                /admin/Cars";
+import BookingsPage              </div>
+                            );
+                 from "./pages/admin/Bookings";          })}
+                          
+import BookingsCalendarPage from "./pages
+                          {dayBookings.length ===/admin/BookingsCalendar"; 0 && car.status !== "maintenance
+import NotFound from "./pages/" && (
+                            <div className="NotFound";
+
+const queryClient = new QueryClient();
+
+const App = ()h-6"></div>
+                          )}
+                        </td>
+                       => (
+  <QueryClientProvider client={queryClient);
+                    })}
+                  }>
+    <TooltipProvider></tr>
+                ))
+              )}
+            
+      <CartProvider>
+        </tbody>
+          </table>
+        <Toaster />
+        <Son</div>
+      )}ner />
+        <BrowserRouter>
+      
+      {/* Диалог с
+          <Routes>
+            <Route path=" деталями бронирования */}/" element={<Index />} />
+            <Route path="/car/:id" element={
+      <Dialog open={isBookingDial<CarDetail />} />
+            <RouteogOpen} onOpenChange={setIsBook path="/checkout" element={<Checkout />ingDialogOpen}>
+        <DialogContent className="sm:max} />
+            
+            {/* Административные маршруты */}-w-[425px]
+            <Route path="/admin" element={">
+          {currentBooking && (<AdminDashboard />}
+            <>
+              <Dialog />
+            <Route path="/admin/dashboarHeader>
+                <Dialogd" element={<AdminDashboard />} />
+            <Route path="/admin/carsTitle>Детали бронирования #{currentBooking.id}</DialogTitle>" element={<CarsPage />} />
+              </DialogHeader>
+            <Route path="/admin/bookings
+              <div className="py-4" element={<BookingsPage />} />">
+                <div className
+            <Route path="/admin/bookings="space-y-4/calendar" element={<BookingsCalendar">
+                  <div>
+                    <h3 className="mbPage />} />
+            
+            {/*-1 text-sm font-medium text ADD ALL CUSTOM ROUTES ABOVE-gray-500">Клиент</h3>
+                     THE CATCH-ALL "*" ROUTE */}<p className="text-lg font-medium">{
+            <Route path="*"currentBooking.customerName}</p> element={<NotFound />} />
+          
+                  </div>
+                  </Routes>
+        </BrowserRouter>
+                  <div>
+                    <h
+      </CartProvider>
+    </To3 className="mb-1 text-oltipProvider>
+  </QueryClientProvidersm font-medium text-gray-500">Автомоби>
+);
+
+export default App;
+ль</h3>
+                    <p
