@@ -1,5 +1,4 @@
-
-import { useState } from "react";
+import { useState } from "react");
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -15,7 +14,8 @@ import {
   ChevronLeft,
   ChevronRight,
   Menu,
-  X
+  X,
+  UserCog
 } from "lucide-react";
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
@@ -49,16 +49,16 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
       active: location.pathname.startsWith("/admin/bookings"),
     },
     {
-      label: "Клиенты",
-      icon: <Users className="h-5 w-5" />,
-      href: "/admin/customers",
-      active: location.pathname.startsWith("/admin/customers"),
+      label: "Пользователи",
+      icon: <UserCog className="h-5 w-5" />,
+      href: "/admin/users",
+      active: location.pathname.startsWith("/admin/users"),
     },
     {
-      label: "Отчеты",
+      label: "Аналитика",
       icon: <BarChart2 className="h-5 w-5" />,
-      href: "/admin/reports",
-      active: location.pathname.startsWith("/admin/reports"),
+      href: "/admin/analytics",
+      active: location.pathname.startsWith("/admin/analytics"),
     },
     {
       label: "Настройки",
@@ -126,8 +126,8 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
       >
         <div className="sticky top-0 flex h-screen flex-col justify-between">
           <div>
-            <div className={`flex h-16 items-center ${isCollapsed ? "justify-center" : "px-4"}`}>
-              {!isCollapsed && <span className="text-xl font-bold">АвтоПрокат</span>}
+            <div className={`flex h-16 items-center ${isCollapsed ? "justify-center" : "px-4"}`}>{
+              !isCollapsed && <span className="text-xl font-bold">АвтоПрокат</span>}
               {isCollapsed && <Car className="h-6 w-6 text-primary" />}
             </div>
             <nav className="space-y-1 px-2">
