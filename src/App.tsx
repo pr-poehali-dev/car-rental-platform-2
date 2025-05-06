@@ -13,6 +13,7 @@ import CarsPage from "./pages/admin/Cars";
 import BookingsPage from "./pages/admin/Bookings";
 import BookingsCalendarPage from "./pages/admin/BookingsCalendar";
 import AnalyticsPage from "./pages/admin/Analytics";
+import AdvancedAnalyticsPage from "./pages/admin/AdvancedAnalytics";
 import UsersPage from "./pages/admin/Users";
 import SettingsPage from "./pages/admin/Settings";
 import NotFound from "./pages/NotFound";
@@ -77,6 +78,14 @@ const App = () => (
               element={
                 <RequireAuth requiredRole="admin">
                   <AnalyticsPage />
+                </RequireAuth>
+              } 
+            />
+            <Route 
+              path="/admin/analytics/advanced" 
+              element={
+                <RequireAuth requiredRole="admin">
+                  <AdvancedAnalyticsPage />
                 </RequireAuth>
               } 
             />
